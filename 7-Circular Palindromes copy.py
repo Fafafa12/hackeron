@@ -1,4 +1,4 @@
-#!/bin/python3
+
 
 import os
 import sys
@@ -47,6 +47,7 @@ def get_len_round_fast(slist, ll, lens):
     end = slist[ll][2]
     l1 = ll - 1
     l2 = ll + 1
+    print(ll, start, end, l1, l2)
     notdone = True
     while notdone and (end - start) < lens and slist[l1 % ls][0] == slist[l2 % ls][0]:
         lgth1 = slist[l1][2]-slist[l1][1]
@@ -85,7 +86,9 @@ def compress_string(s):
             start = ss
             cc = s[ss]
     ls.append((cc, start, len(s)))  # append the last characters encountered
-    ls.pop(0)  # first value is a throwaway one
+    ls.pop(0)
+    # print(ls)
+    # first value is a throwaway one
     if ls[0][0] == ls[-1][0]:  # stitch the ends, move the start of sequence before 0
         ls[0] = (ls[0][0], ls[-1][1]-len(s), ls[0][2])
         ls.pop()  # remove last element, now that it is combined with the first
@@ -98,7 +101,7 @@ def make_pal_dict(slist, lens):
     list1 = []
     for ll in range(ls):
         (start, stop) = get_len_round_fast(slist, ll, lens)
-#        print(ll, start, stop)
+        # print(ll, start, stop)
         lgth = stop - start
         if lgth > 1:
             if start < 0:
@@ -126,9 +129,9 @@ def make_pal_dict(slist, lens):
 def cp(s):
     ls = len(s)
     slist = compress_string(s)
-#    print(slist)
+    # print(slist)
     (dict1, list1) = make_pal_dict(slist, ls)
-#    print(dict1, list1)
+    # print(dict1, list1)
     maxes = []  # value for k = 0
     ll = len(list1)-1  # start here to look for longest palindrome
     for k in range(ls):
@@ -218,5 +221,5 @@ def cp_gold(s):
     return maxes
 
 
-s = 'eededdeedede'
+s = 'aaaaaaaaaaaaaaaaaaaaaavavvvvvvvvvvvvvvvvvvvvvvvvvvvvvvdddddddddddddddddddsssssssssssssssssssssssssaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbb'
 print(circularPalindromes(s))
